@@ -8,6 +8,7 @@ import ovh.jakubk.server.model.Response;
 import ovh.jakubk.server.model.Server;
 import ovh.jakubk.server.service.impl.ServerServiceImpl;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -84,7 +85,15 @@ public class ServerResource {
     //TODO proper path to images
     @GetMapping(path = "/image/{fileName}", produces = IMAGE_PNG_VALUE)
     public byte[] getServerImage(@PathVariable("fileName") String fileName) throws IOException {
-        return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "img/" + fileName));
+        //return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "image/" + fileName)); //Linux
+        return Files.readAllBytes(Paths.get(
+                System.getProperty("user.dir")
+                        + File.separator
+                        + "server"
+                        + File.separator
+                        + "image"
+                        + File.separator
+                        + fileName)); //Windows
     }
 
 
